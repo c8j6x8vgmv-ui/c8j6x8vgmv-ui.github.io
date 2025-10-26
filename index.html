@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>恵那山登山・昼神温泉 旅のしおり</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f7f7f7;
+        }
+        .shiori-card {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .header-bg {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .day-header {
+            background-color: #ecfdf5;
+            border-left: 5px solid #059669;
+        }
+        .location-link {
+            color: #3b82f6;
+            transition: color 0.2s;
+        }
+        /* 電話番号のリンクスタイル */
+        .tel-link {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .tel-link:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+        .location-link:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+        .time-box {
+            min-width: 5rem;
+        }
+        /* 登山テーブルのスタイル */
+        .climb-table th, .climb-table td {
+            padding: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+        .climb-table th {
+            background-color: #f3f4f6;
+            font-weight: 700;
+        }
+        .attraction-text {
+            /* 魅力ポイントを強調するスタイル */
+            font-size: 0.875rem; /* sm */
+            color: #065f46; /* green-800 */
+            font-weight: 500; /* medium */
+            margin-top: 0.25rem;
+            white-space: pre-wrap; /* 改行を有効にする */
+        }
+        .image-placeholder {
+            /* 画像コンテナのスタイル */
+            width: 100%;
+            height: 250px; /* 高さを固定 */
+            background-color: #e2e8f0; /* 薄い青灰色の背景 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-radius: 0.5rem;
+        }
+        /* Flexbox for side-by-side content */
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+            gap: 1rem; /* Space between items */
+            /* 修正: 左右の要素の高さを揃えるために align-items: stretch を利用 */
+            align-items: stretch; 
+        }
+        .flex-item-main {
+            flex: 3; /* Takes more space (60% of total flex space) */
+            min-width: 60%; /* Ensure it doesn't get too small */
+            /* 修正: 高さを自動で合わせるため、ここでは固定高さを設定しない */
+        }
+        /* 恵那山画像コンテナ */
+        .flex-item-sidebar {
+            flex: 2; /* Takes more space (40% of total flex space) */
+            min-width: 30%; /* Ensure it doesn't get too small */
+            max-width: 100%; /* Prevents overflow */
+            /* 修正: 高さを自動で合わせるため、flex-grow: 1 を追加 */
+            flex-grow: 1;
+            display: flex; /* 画像を中央に配置するために flex を追加 */
+            justify-content: center;
+            align-items: center;
+            background-color: #e2e8f0; /* 背景色を追加して高さを分かりやすく */
+            border-radius: 0.5rem;
+        }
+        /* 恵那山画像自体の設定 */
+        .flex-item-sidebar img {
+            /* 修正: 親コンテナの高さに依存させ、見切れないように contain を維持 */
+            width: 100%;
+            max-height: 100%; /* 親コンテナの高さを超えないようにする */
+            object-fit: contain; 
+        }
+
+        /* Responsive adjustments for image */
+        @media (max-width: 768px) {
+            .flex-item-main, .flex-item-sidebar {
+                min-width: 100%; /* Stack on small screens */
+            }
+            .flex-item-sidebar {
+                /* モバイルではスタックされるため、画像コンテナの高さを固定してバランスを取る */
+                height: 250px; 
+            }
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-4xl mx-auto shiori-card bg-white">
+
+        <!-- Header --><header class="header-bg text-white p-6 sm:p-8 rounded-t-xl">
+            <h1 class="text-3xl sm:text-4xl font-extrabold mb-1">恵那山登山・昼神温泉の旅</h1>
+            <p class="text-xl font-light">2025年11月1日(土) 〜 11月3日(月・祝)</p>
+        </header>
+
+        <!-- Main Content --><main class="p-4 sm:p-6">
+            
+            <!-- NEW: Weather Check Section -->
+            <section class="mb-8 p-4 bg-blue-50 border-l-4 border-blue-400 rounded-lg">
+                <h2 class="text-xl font-bold text-blue-800 mb-3">🌦️ 天気予報の確認</h2>
+                <p class="text-gray-700 mb-4">
+                    安全な登山の第一歩は、最新の気象情報を確認することです。
+                    <span class="font-bold text-red-600">出発直前に、必ずご自身で最新の天気予報をご確認ください。</span>
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="https://tenki.jp/mountain/4/23/128.html" target="_blank" rel="noopener noreferrer" class="flex-1 block text-center p-3 font-semibold text-white bg-blue-500 rounded-lg shadow hover:bg-blue-600 transition-colors">
+                        恵那山の天気 (tenki.jp)
+                    </a>
+                    <a href="https://tenki.jp/forecast/3/23/4820/20424/" target="_blank" rel="noopener noreferrer" class="flex-1 block text-center p-3 font-semibold text-white bg-green-500 rounded-lg shadow hover:bg-green-600 transition-colors">
+                        昼神温泉(阿智村)の天気 (tenki.jp)
+                    </a>
+                </div>
+            </section>
+            <!-- END NEW: Weather Check Section -->
+
+            <!-- MOVED: ユーザー提供のサマリー情報 (最上部に配置) & Image Side-by-Side --><div class="flex-container mb-8">
+                <div class="flex-item-main p-4 bg-red-100 border-l-4 border-red-500 rounded-lg">
+                    <h3 class="text-xl font-bold text-red-800 mb-3">🏔️ 恵那山登山で気をつけること (重要事項サマリー)</h3>
+                    <ul class="list-decimal list-outside space-y-3 text-gray-700 ml-4 text-sm">
+                        <li>
+                            <span class="font-semibold text-red-700">登山ルート、時間、体力・安全管理:</span> 
+                            <span class="font-extrabold text-red-900 bg-yellow-200 p-0.5 rounded-sm inline-block">神坂峠ルート、往復約7〜8時間、累積標高差約1,300m、距離12〜13kmです。</span>
+                        </li>
+                        <li>
+                            <span class="font-semibold text-red-700">地形・危険箇所:</span> 
+                            <ul class="list-disc list-inside ml-4 space-y-1">
+                                <li>天狗ナギ周辺は切れ落ちた崖で滑落の危険があり、ロープが張られていますが要注意。</li>
+                                <li>ウバナギ付近は浮石が多く、落石の危険があるため、特に下山時は慎重に。</li>
+                                <li>山頂付近は樹林帯で道迷いしやすい分岐があるため、標識を必ず確認してください。</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="font-semibold text-red-700">装備・持ち物:</span> 
+                            必須装備は登山靴、レインウェア、防寒着（11月は氷点下になることも）、
+                            <span class="font-extrabold text-red-900 bg-yellow-200 p-0.5 rounded-sm inline-block">ヘッドライトです。水場がないため、最低2L以上の水と行動食を多めに持参しましょう。電波が弱い場所もあります。</span>
+                        </li>
+                        <li>
+                            <span class="font-semibold text-red-700">天候と季節:</span> 
+                            11月は初雪や凍結の可能性があります。天候急変に備え、ガスが出やすい場合は視界不良になる前に撤退判断を。午後は雷雲が発生しやすいため、午前中の下山完了が理想です。
+                        </li>
+                    </ul>
+                </div>
+                <!-- 画像コンテナ: 高さ自動調整 -->
+                <div class="flex-item-sidebar">
+                    <img src="https://i.imgur.com/jwwWkaR.png" 
+                         alt="恵那山の美しい山並み" 
+                         class="rounded-lg shadow-md">
+                </div>
+            </div>
+            <!-- End MOVED: ユーザー提供のサマリー情報 & Image Side-by-Side --><!-- NEW: 恵那山の詳細情報 (うんちく) - Now second --><section class="mb-8 p-4 bg-blue-50 border-l-4 border-blue-400 rounded-lg">
+                <h2 class="text-xl font-bold text-blue-800 mb-2">🏔️ 恵那山 (えなさん) の歴史と魅力</h2>
+                <p class="text-gray-700 mb-3">
+                    恵那山は標高2,191mを誇る**日本百名山**の一つであり、古くから霊峰として崇められてきました。
+                    岐阜県と長野県の県境に堂々とそびえ立つ、中央アルプスの南端を彩る山です。
+                </p>
+                <ul class="list-disc list-inside space-y-1 text-gray-600 ml-4">
+                    <li><span class="font-semibold text-blue-700">信仰の山:</span> 山頂には恵那山神社奥宮があり、神坂峠ルートは修験道の霊山として利用された信仰の道です。</li>
+                    <li><span class="font-semibold text-blue-700">地理的特徴:</span> 山麓からは雄大な木曽川が流れ、その源流に近い場所に位置します。</li>
+                    <li><span class="font-semibold text-blue-700">名前の由来:</span> 日本神話でイザナギノミコトが産んだ「胞衣（えな）」を埋めた場所に由来するという伝承があります。</li>
+                    <li><span class="font-semibold text-blue-700">展望:</span> 山頂自体は樹林帯に覆われていますが、避難小屋近くの展望台からは、天候が良ければ南アルプスや富士山を望むことができます。</li>
+                </ul>
+            </section>
+            
+            <!-- Information Box: 宿泊情報 (電話番号リンク化) --><section class="mb-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-lg">
+                <h2 class="text-xl font-bold text-yellow-800 mb-2">宿泊情報・連絡先</h2>
+                <p class="text-gray-700 mb-4">
+                    <span class="font-semibold">宿泊先:</span> 昼神温泉 四季の織はなや<br>
+                    <span class="font-semibold">電話:</span> <a href="tel:0265432700" class="tel-link">0265-43-2700</a> (担当者：竹富さん)<br>
+                    <span class="font-semibold">所在地:</span> <a href="https://www.google.com/maps/search/?api=1&query=昼神温泉+四季の織はなや" target="_blank" class="location-link">Googleマップで場所を見る</a>
+                </p>
+                <!-- Google Map Embed: 宿泊先 --><div class="h-64 w-full rounded-lg overflow-hidden mt-2">
+                    <iframe src="https://maps.google.com/maps?q=昼神温泉+四季の織はなや&z=14&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </section>
+            
+            <!-- Day 1 --><section class="mb-10">
+                <h2 class="day-header text-2xl font-bold p-3 mb-4 rounded-lg">🗓️ 1日目：2025年11月1日(土) - 恵那峡・馬籠宿散策</h2>
+                <div class="space-y-4">
+                    <!-- Item 1 --><div class="flex items-start space-x-3 p-3 border-b">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-gray-700">09:00</div>
+                        <div>
+                            <p class="font-semibold">自宅 出発</p>
+                            <p class="text-sm text-gray-500">（東名・東海環状道経由）</p>
+                        </div>
+                    </div>
+                    <!-- Item 2: 恵那峡遊覧船 (地図埋め込み) --><div class="flex items-start space-x-3 p-3 border-b flex-wrap">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-green-700">11:00頃</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-semibold">恵那峡遊覧船 乗船</p>
+                            <p class="text-sm text-gray-700">遊覧船 (35分) 料金: 1,350円/人</p>
+                            <p class="attraction-text">✨ 魅力: 木曽川の浸食で生まれた奇岩・怪石が織りなす大自然の造形美を、船上からゆったりと眺めます。
+特に秋は、断崖絶壁と紅葉のコントラストが圧巻です。</p>
+                            <!-- 恵那峡の遊覧船情報なので、コースマップの画像URLを残しておきます --><div class="w-full rounded-xl overflow-hidden shadow-lg border border-gray-200">
+                                <img src="https://www.tohsyoh.jp/tohsyohwp/wp-content/uploads/2024/07/img_course_map.jpg" 
+                                     alt="恵那峡遊覧船コースマップ" 
+                                     class="w-full h-auto object-cover">
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=恵那峡遊覧船+のりば" target="_blank" class="text-xs location-link block">Googleマップで場所を見る</a>                            
+                            <!-- 公式ウェブサイトリンク --><a href="https://www.tohsyoh.jp/ship/jetboat/course" target="_blank" class="text-xs location-link block mt-1">公式ウェブサイトでコースを見る</a>
+                        </div>
+                        <!-- Google Map Embed: 恵那峡遊覧船 --><div class="mt-3 w-full h-48 rounded-lg overflow-hidden">
+                            <iframe src="https://maps.google.com/maps?q=恵那峡遊覧船&z=13&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <!-- Item 3: 馬籠宿 (地図埋め込み) --><div class="flex items-start space-x-3 p-3 border-b flex-wrap">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-green-700">13:00頃</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-semibold">中山道 馬籠宿 散策</p>
+                            <p class="text-sm text-gray-700">石畳の坂道が特徴の宿場町。</p>
+                            <p class="attraction-text">✨ 魅力: 文豪・島崎藤村の故郷であり、急な坂道に石畳が続く珍しい宿場町。
+坂の上からは恵那山を望む雄大な景色が広がります。栗きんとんなど、地元の甘味もぜひ。</p>
+                            <a href="https://www.google.com/maps/search/?api=1&query=馬籠宿" target="_blank" class="text-xs location-link">Googleマップで場所を見る</a>
+                            <p class="text-xs text-gray-500">※恵那峡から車で約35分</p>
+                        </div>
+                        <!-- Google Map Embed: 馬籠宿 --><div class="mt-3 w-full h-48 rounded-lg overflow-hidden">
+                            <iframe src="https://maps.google.com/maps?q=馬籠宿&z=14&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <!-- Item 4 --><div class="flex items-start space-x-3 p-3 border-b">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-gray-700">16:00頃</div>
+                        <div>
+                            <p class="font-semibold">昼神温泉へ移動</p>
+                            <p class="text-sm text-gray-500">馬籠宿から車で約30分 (21.9km)</p>
+                        </div>
+                    </div>
+                    <!-- Item 5 --><div class="flex items-start space-x-3 p-3">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-green-700">17:00</div>
+                        <div>
+                            <p class="font-semibold">四季の織はなや チェックイン</p>
+                            <p class="text-sm text-gray-700">夕食・昼神温泉の湯を堪能</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Day 2 --><section class="mb-10">
+                <h2 class="day-header text-2xl font-bold p-3 mb-4 rounded-lg">🏔️ 2日目：2025年11月2日(日) - 恵那山登山</h2>
+                <div class="space-y-4">
+                    <!-- Item 1: 恵那山神坂峠へ移動 (地図埋め込み) --><div class="flex items-start space-x-3 p-3 border-b flex-wrap">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-red-700">05:00</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-semibold">宿 出発・恵那山神坂峠へ移動</p>
+                            <p class="text-sm text-gray-700">移動時間: 約1時間 (33.7km)</p>
+                            <a href="https://www.google.com/maps/search/?api=1&query=恵那山神坂峠駐車場" target="_blank" class="text-xs location-link">神坂峠駐車場マップ</a>
+                        </div>
+                        <!-- Google Map Embed: 神坂峠駐車場 --><div class="mt-3 w-full h-48 rounded-lg overflow-hidden">
+                            <iframe src="https://maps.google.com/maps?q=恵那山神坂峠駐車場&z=12&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    
+                    <!-- 恵那山のプレースホルダー画像 -->
+                    <!-- この画像はDay2のセクション内の画像なので変更しません -->
+                    <div class="w-full rounded-xl overflow-hidden shadow-lg border border-gray-200">
+                        <img src="https://i.imgur.com/iz1qgJP.png" 
+                             alt="恵那山の山頂イメージ" 
+                             class="w-full h-auto object-cover">
+                    </div>
+                    
+                    <!-- 登山タイムテーブル --><div class="p-3 bg-gray-50 rounded-lg">
+                        <h3 class="text-lg font-bold text-red-700 mb-2">【恵那山登山 神坂峠ルート 詳細タイムテーブル (登り・下り)】</h3>
+                        <p class="text-sm text-gray-600 mb-3">※時刻は休憩後の出発時刻または到着時刻です。</p>
+                        <div class="overflow-x-auto">
+                            <table class="climb-table w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th class="py-2 px-3 whitespace-nowrap">時刻</th>
+                                        <th class="py-2 px-3 whitespace-nowrap">ポイント</th>
+                                        <th class="py-2 px-3">見どころ・備考</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-red-100">
+                                        <td class="py-2 px-3 font-bold text-red-700">06:10</td>
+                                        <td class="py-2 px-3">神坂峠登山口</td>
+                                        <td class="py-2 px-3">登山開始。恵那山神社の鳥居をくぐり、出発。</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-3">07:10</td>
+                                        <td class="py-2 px-3">鳥越峠</td>
+                                        <td class="py-2 px-3">静かな峠。ここから徐々に傾斜増</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-3">07:45</td>
+                                        <td class="py-2 px-3">ウバナギ</td>
+                                        <td class="py-2 px-3">「ウバナギ」の地名の由来が残る地点。</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-3">08:20</td>
+                                        <td class="py-2 px-3">大判山</td>
+                                        <td class="py-2 px-3">広場のような山頂。条件が良ければ遠くの南アルプスも</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-3">10:00</td>
+                                        <td class="py-2 px-3">天狗ナギ</td>
+                                        <td class="py-2 px-3 font-bold text-red-600">急斜面の崩壊地。眺望は良、足元に十分注意が必要</td>
+                                    </tr>
+                                    <tr class="bg-red-100">
+                                        <td class="py-2 px-3 font-bold text-red-700">12:35</td>
+                                        <td class="py-2 px-3">恵那山山頂</td>
+                                        <td class="py-2 px-3">11:35到着、12:35発。</td>
+                                    </tr>
+                                    <!-- 下山スケジュール --><tr>
+                                        <td class="py-2 px-3">14:00</td>
+                                        <td class="py-2 px-3">天狗ナギ</td>
+                                        <td class="py-2 px-3">（登りと同じ）</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-3">15:00</td>
+                                        <td class="py-2 px-3">大判山</td>
+                                        <td class="py-2 px-3">（登りと同じ）</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-3">15:30</td>
+                                        <td class="py-2 px-3">ウバナギ</td>
+                                        <td class="py-2 px-3">（登りと同じ）</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-3">16:00</td>
+                                        <td class="py-2 px-3">鳥越峠</td>
+                                        <td class="py-2 px-3">（登りと同じ）</td>
+                                    </tr>
+                                    <tr class="bg-red-100">
+                                        <td class="py-2 px-3 font-bold text-red-700">16:10</td>
+                                        <td class="py-2 px-3">神坂峠登山口</td>
+                                        <td class="py-2 px-3">下山完了（到着時刻）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2: 宿帰着 --><div class="flex items-start space-x-3 p-3">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-green-700">17:45頃</div>
+                        <div>
+                            <p class="font-semibold">四季の織はなや 帰着</p>
+                            <p class="text-sm text-gray-500">（下山完了後、宿へ直行）</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Day 3 -->
+            <section>
+                <h2 class="day-header text-2xl font-bold p-3 mb-4 rounded-lg">🚶 3日目：2025年11月3日(月・祝) - 木曽路・帰路</h2>
+                <div class="space-y-4">
+                    
+                    <!-- Item 1: チェックアウト --><div class="flex items-start space-x-3 p-3 border-b">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-gray-700">09:00</div>
+                        <div>
+                            <p class="font-semibold">宿で朝食、チェックアウト</p>
+                            <p class="text-sm text-gray-500">（中山道へ出発）</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: 馬籠宿 (地図埋め込み) --><div class="flex items-start space-x-3 p-3 border-b flex-wrap">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-green-700">10:00頃</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-semibold">中山道 馬籠宿 散策</p>
+                            <p class="text-sm text-gray-700">昼神温泉から車で約30分。1日目と異なり、ゆっくり散策。</p>
+                            <p class="attraction-text">✨ 魅力: 文豪・島崎藤村の故郷であり、急な坂道に石畳が続く珍しい宿場町。坂の上からは恵那山を望む雄大な景色が広がります。</p>
+                            <a href="https://www.google.com/maps/search/?api=1&query=馬籠宿" target="_blank" class="text-xs location-link">Googleマップで場所を見る</a>
+                        </div>
+                        <!-- Google Map Embed: 馬籠宿 --><div class="mt-3 w-full h-48 rounded-lg overflow-hidden">
+                            <iframe src="https://maps.google.com/maps?q=馬籠宿&z=14&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: 妻籠宿 (地図埋め込み) --><div class="flex items-start space-x-3 p-3 border-b flex-wrap">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-green-700">12:00頃</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-semibold">妻籠宿 (つまごじゅく) へ移動・散策</p>
+                            <p class="text-sm text-gray-700">馬籠宿から車で約15分。昼食もこの周辺で。</p>
+                            <p class="attraction-text">✨ 魅力: 「売らない、貸さない、壊さない」の三原則で、江戸時代の宿場の姿を完全に守っています。
+当時の面影を色濃く残す、情緒豊かな町並みが魅力です。</p>
+                            <a href="https://www.google.com/maps/search/?api=1&query=妻籠宿" target="_blank" class="text-xs location-link">Googleマップで場所を見る</a>
+                        </div>
+                        <!-- Google Map Embed: 妻籠宿 --><div class="mt-3 w-full h-48 rounded-lg overflow-hidden">
+                            <iframe src="https://maps.google.com/maps?q=妻籠宿&z=14&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 4: 帰路 --><div class="flex items-start space-x-3 p-3 border-b bg-gray-50 rounded-lg">
+                        <div class="flex-shrink-0 time-box text-sm font-bold text-gray-700">14:30頃</div>
+                        <div>
+                            <p class="font-semibold">妻籠宿 出発・帰路へ</p>
+                            <p class="text-sm text-gray-500">（中央自動車道 園原IC/中津川ICなどから帰路へ）</p>
+                            <p class="text-xs text-gray-500 mt-1">※妻籠宿から昼神温泉の最寄りICまでは、中津川IC経由で約30〜40分です。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer --><footer class="header-bg text-white p-4 text-center rounded-b-xl">
+            <p class="text-sm font-light">素敵な恵那山登山と昼神温泉の旅になりますように！</p>
+        </footer>
+    </div>
+</body>
+</html>
+
